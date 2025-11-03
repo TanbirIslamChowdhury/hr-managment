@@ -48,7 +48,7 @@ Route::middleware('auth:web')->group(function () {
     Route::resource('designation', DesignationController::class);
 
     // Employee Salary CRUD routes
-    Route::resource('employee-salaries', EmployeeSalaryController::class);
+    Route::resource('employee-salary', EmployeeSalaryController::class);
 
     // Employee CRUD routes
     Route::resource('employee', EmployeeController::class);

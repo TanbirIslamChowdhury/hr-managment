@@ -12,8 +12,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $data = Department::where('company_id', auth()->user()->company_id)->get();
-        return view('Department.index', compact('data'));
+        $data = Department::get();
+        return response()->json($data, 200);
     }
 
     /**

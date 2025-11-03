@@ -9,7 +9,7 @@
                 <h2>Edit Employee Salary</h2>
             </div>
             <div class="card-body">
-                <form action="{{ route('employee_salary.update', $salary->id) }}" method="POST">
+                <form action="{{ route('employee-salary.update', $salary->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 

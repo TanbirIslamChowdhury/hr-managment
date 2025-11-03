@@ -38,17 +38,17 @@ class AttendanceController extends Controller
             'date' => 'required|date'
         ]);
 
-        foreach($request->employee_id as $key => $employeeId) {
+        foreach($request->attendance as $key => $att) {
             Attendance::updateOrCreate(
                 [
-                    'employee_id' => $employeeId,
+                    'employee_id' => $att['employee_id'],
                     'date' => $request->date,
                 ],
                 [
-                    'company_id' => auth()->user()->company_id,
-                    'status' => $request->status[$key],
-                    'check_in' => $request->check_in[$key] ?? null,
-                    'check_out' => $request->check_out[$key] ?? null,
+                    'company_id' => 6,
+                    'status' => $att['status'],
+                    'check_in' => $att['check_in'] ?? null,
+                    'check_out' => $att['check_out'] ?? null,
                 ]
             );
         }

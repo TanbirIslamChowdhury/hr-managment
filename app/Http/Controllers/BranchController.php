@@ -12,8 +12,8 @@ class BranchController extends Controller
      */
     public function index()
     {
-        $data=Branch::where('company_id',auth()->user()->company_id)->get();
-        return view('Branch.index',compact('data'));
+        $data=Branch::get();
+        return response()->json($data, 200);
     }
 
     /**

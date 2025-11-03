@@ -103,11 +103,11 @@
                             <span class="nav-text">Shift</span>
                         </a>
                     </li>
-                    <li>
-                        <a class="sidenav-item-link" href="email-details.html">
+                    {{-- <li>
+                        <a class="sidenav-item-link" href="{{route('email-details.html')}}">
                             <span class="nav-text">Email Details</span>
                         </a>
-                    </li>
+                    </li> --}}
 
                   <li>
                     <a class="sidenav-item-link" href="{{route('organization.index')}}">
@@ -134,7 +134,7 @@
                     </a>
                   </li>
                   <li>
-                    <a class="sidenav-item-link" href="{{route('employee-salaries.index')}}">
+                    <a class="sidenav-item-link" href="{{route('employee-salary.index')}}">
                       <span class="nav-text">employee-salaries</span>
 
                     </a>
@@ -189,15 +189,15 @@
 
 
 
-            <li class="section-title">
+            {{-- <li class="section-title">
               UI Elements
-            </li>
+            </li> --}}
 
 
 
 
 
-            <li class="has-sub">
+            {{-- <li class="has-sub">
               <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#ui-elements"
                 aria-expanded="false" aria-controls="ui-elements">
                 <i class="mdi mdi-folder-outline"></i>
@@ -540,13 +540,13 @@
 
                 </div>
               </ul>
-            </li>
+            </li> --}}
 
 
 
 
 
-            <li class="has-sub">
+            {{-- <li class="has-sub">
               <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#charts"
                 aria-expanded="false" aria-controls="charts">
                 <i class="mdi mdi-chart-pie"></i>
@@ -569,21 +569,21 @@
 
                 </div>
               </ul>
-            </li>
+            </li> --}}
 
 
 
 
-
+{{-- 
             <li class="section-title">
               Pages
-            </li>
+            </li> --}}
 
 
 
 
 
-            <li class="has-sub">
+            {{-- <li class="has-sub">
               <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#users"
                 aria-expanded="false" aria-controls="users">
                 <i class="mdi mdi-image-filter-none"></i>
@@ -678,13 +678,13 @@
 
                 </div>
               </ul>
-            </li>
+            </li> --}}
 
 
 
 
 
-            <li class="has-sub">
+            {{-- <li class="has-sub">
               <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse"
                 data-target="#authentication" aria-expanded="false" aria-controls="authentication">
                 <i class="mdi mdi-account"></i>
@@ -733,7 +733,7 @@
               </ul>
             </li>
 
-
+ --}}
 
 
 

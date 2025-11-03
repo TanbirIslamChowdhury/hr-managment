@@ -12,9 +12,8 @@ class DesignationController extends Controller
      */
     public function index()
     {
-        $data = Designation::where('company_id', auth()->user()->company_id)
-                ->get();
-        return view('designation.index',compact('data'));
+        $data = Designation::get();
+        return response()->json($data, 200);
     }
 
     /**

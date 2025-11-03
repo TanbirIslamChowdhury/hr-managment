@@ -18,8 +18,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $data=Employee::where('company_id',auth()->user()->company_id)->get();
-        return view('employee.index',compact('data'));
+        $data=Employee::with('branch','department','designation','shift')->get();
+        return response()->json($data, 200);
     }
 
     /**
@@ -49,13 +49,13 @@ class EmployeeController extends Controller
             'phone'          => 'required|string|max:20',
             'father_name'    => 'nullable|string|max:255',
             'mother_name'    => 'nullable|string|max:255',
-            'date_of_birth'  => 'required|date',
+            'date_of_birth'  => 'nullable|date',
             'education'      => 'nullable|string|max:255',
             'skill'          => 'nullable|string|max:255',
-            'join_date'      => 'required|date',
+            'join_date'      => 'nullable|date',
             'status'         => 'required|in:active,inactive',
         ]);
-        $request->merge(['company_id' => auth()->user()->company_id]);
+        $request->merge(['company_id' => 6]);
 
         Employee::create($request->all());
 

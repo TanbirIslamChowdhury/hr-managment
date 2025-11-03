@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Employee_Salary;
+use App\Models\EmployeeSalary;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,7 @@ class EmployeeSalaryController extends Controller
      */
     public function index()
     {
-        $data=Employee_Salary::where('employee_id', auth()->user()->employee_id)->get();
+        $data=EmployeeSalary::get();
         return view('employee_salary.index', compact('data'));
     }
 
@@ -22,7 +22,9 @@ class EmployeeSalaryController extends Controller
      */
     public function create()
     {
-        return view('employee_salary.create');
+        $data = Employee::get();
+        return view('employee_salary.create', compact('data'));
+      
     }
 
     /**
@@ -39,16 +41,16 @@ class EmployeeSalaryController extends Controller
             'loan_active'   => 'required|boolean',
         ]);
 
-        Employee_Salary::create($request->all());
+        EmployeeSalary::create($request->all());
 
-        return redirect()->route('employee_salary.index')->with('success', 'Employee salary created successfully.');
+        return redirect()->route('employee-salary.index')->with('success', 'Employee salary created successfully.');
     
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Employee_Salary $employee_Salary)
+    public function show(EmployeeSalary $employee_Salary)
     {
         //
     }
@@ -56,7 +58,7 @@ class EmployeeSalaryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Employee_Salary $employee_Salary)
+    public function edit(EmployeeSalary $employee_Salary)
     {
         return view('employee_salary.edit', compact('employee_salary'));
     }
@@ -64,7 +66,7 @@ class EmployeeSalaryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Employee_Salary $employee_Salary)
+    public function update(Request $request, EmployeeSalary $employee_Salary)
     {
          $request->validate([
             'employee_id'   => 'required|exists:employees,id',
@@ -84,7 +86,7 @@ class EmployeeSalaryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Employee_Salary $employee_Salary)
+    public function destroy(EmployeeSalary $employee_Salary)
     {
          
     }

@@ -10,7 +10,7 @@
                 <h2>Add Employee Salary</h2>
             </div>
             <div class="card-body">
-                <form action="{{ route('employee_salary.store') }}" method="POST">
+                <form action="{{ route('employee-salary.store') }}" method="POST">
                     @csrf
 
                     {{-- Employee Dropdown --}}
@@ -18,9 +18,9 @@
                         <label for="employee_id">Employee</label>
                         <select class="form-control" id="employee_id" name="employee_id" required>
                             <option value="">Select Employee</option>
-                            @foreach($employees as $employee)
+                            @foreach($data as $employee)
                                 <option value="{{ $employee->id }}">
-                                    {{ $employee->first_name }} {{ $employee->last_name }}
+                                    {{ $employee->name }} 
                                 </option>
                             @endforeach
                         </select>

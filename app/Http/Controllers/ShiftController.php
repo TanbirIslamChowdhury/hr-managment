@@ -12,8 +12,8 @@ class ShiftController extends Controller
      */
     public function index()
     {
-        $data = Shift::where('company_id',auth()->user()->company_id)->get();
-        return view('shift.index',compact('data'));
+        $data = Shift::get();
+        return response()->json($data, 200);
     }
 
     /**
