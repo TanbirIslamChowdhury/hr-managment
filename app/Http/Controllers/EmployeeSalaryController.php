@@ -77,7 +77,7 @@ class EmployeeSalaryController extends Controller
             'loan_active'   => 'required|boolean',
         ]);
 
-        $employeeSalary->update($request->all());
+        $employee_Salary->update($request->all());
 
         return redirect()->route('employee_salary.index')->with('success', 'Employee salary updated successfully.');
     

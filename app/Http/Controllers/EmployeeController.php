@@ -18,7 +18,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $data=Employee::with('branch','department','designation','shift')->get();
+        $data=Employee::with('branch','department','designation','shift','salary')->get();
         return response()->json($data, 200);
     }
 
@@ -58,8 +58,7 @@ class EmployeeController extends Controller
         $request->merge(['company_id' => 6]);
 
         Employee::create($request->all());
-
-        return redirect()->route('employee.index')->with('success', 'Employee created successfully.');
+        return response()->json(['message' => 'Employee Created ']);
 
     }
 

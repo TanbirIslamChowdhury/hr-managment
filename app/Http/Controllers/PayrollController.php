@@ -12,9 +12,12 @@ class PayrollController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $data = Payroll::with('employee')->get();
+        if ($request->expectsJson() || $request->is('api/*')) {
+            return response()->json($data, 200);
+        }
         return view('payroll.index', compact('data'));
     }
 
@@ -65,11 +68,7 @@ class PayrollController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'month' => 'required|integer|between:1,12',
-            'year' => 'required|integer',
-        ]);
-
+        //return $request->all();
         $employees = Employee::all();
         
         foreach ($employees as $employee) {
@@ -91,45 +90,45 @@ class PayrollController extends Controller
             ]);
         }
 
-        return redirect()->route('payroll.index')->with('success', 'Payroll created successfully');
+        return response()->json(['message' => 'Payroll Created ']);
+        
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Payroll $payroll)
+    public function show(Payroll $Payroll, Request $request)
     {
+        $Payroll->load('employee');
+        if ($request->expectsJson() || $request->is('api/*')) {
+            return response()->json($Payroll, 200);
+        }
         return view('payroll.show', compact('payroll'));
-        
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Payroll $payroll)
+    public function edit(Payroll $payroll, Request $request)
     {
-         $employees = Employee::all();
+        $payroll->load('employee');
+        $employees = Employee::all();
+        if ($request->expectsJson() || $request->is('api/*')) {
+            return response()->json([
+                'payroll' => $payroll,
+                'employees' => $employees
+            ], 200);
+        }
         return view('payroll.edit', compact('payroll', 'employees'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Payroll $payroll)
+    public function update(Request $request, Payroll $Payroll)
     {
-         $request->validate([
-            'employee_id'   => 'required|exists:employees,id',
-            'month'         => 'required|string|max:20',
-            'year'          => 'required|digits:4|integer',
-            'basic_salary'  => 'required|numeric|min:0',
-            'allowances'    => 'required|numeric|min:0',
-            'deductions'    => 'required|numeric|min:0',
-            'bonuses'       => 'required|numeric|min:0',
-            'net_salary'    => 'required|numeric|min:0',
-            'generated_at'  => 'nullable|date',
-        ]);
 
-        $payroll->update([
+        $Payroll->update([
             'employee_id'  => $request->employee_id,
             'month'        => $request->month,
             'year'         => $request->year,
@@ -141,6 +140,9 @@ class PayrollController extends Controller
             'generated_at' => $request->generated_at,
         ]);
 
+        if ($request->expectsJson() || $request->is('api/*')) {
+            return response()->json(['message' => 'Payroll updated successfully.', 'payroll' => $Payroll], 200);
+        }
         return redirect()->route('payroll.index')->with('success', 'Payroll updated successfully.');
    
     }
@@ -148,10 +150,12 @@ class PayrollController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Payroll $payroll)
+    public function destroy(Payroll $payroll, Request $request)
     {
-         $payroll->delete();
+        $payroll->delete();
+        if ($request->expectsJson() || $request->is('api/*')) {
+            return response()->json(['message' => 'Payroll deleted successfully.'], 200);
+        }
         return redirect()->route('payroll.index')->with('success', 'Payroll deleted successfully.');
-   
     }
 }

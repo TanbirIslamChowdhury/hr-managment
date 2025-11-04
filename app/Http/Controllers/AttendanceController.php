@@ -14,19 +14,10 @@ class AttendanceController extends Controller
     */
     public function index()
     {
-          $data = Attendance::where('company_id', auth()->user()->company_id)
+          $data = Attendance::where('company_id', 6)
                             ->groupBy('date')
                             ->get();
-        return view('attendance.index', compact('data'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $employees = Employee::all();
-        return view('attendance.create', compact('employees'));
+        return response()->json($data);
     }
 
     /**
@@ -52,7 +43,7 @@ class AttendanceController extends Controller
                 ]
             );
         }
-        return redirect()->route('attendance.index')->with('success', 'Attendance created successfully.');
+        return response()->json(['message' => 'Attendance Created ']);
 
     }
 
@@ -91,7 +82,7 @@ class AttendanceController extends Controller
     public function destroy(Attendance $attendance)
     {
         Attendance::where('date', $attendance->date)
-                    ->where('company_id', auth()->user()->company_id)
+                    ->where('company_id', 6)
                     ->delete();
         return redirect()->route('attendance.index')->with('success', 'Attendance deleted successfully.');
     }
