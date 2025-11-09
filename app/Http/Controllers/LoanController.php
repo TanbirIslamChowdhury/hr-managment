@@ -14,16 +14,7 @@ class LoanController extends Controller
     public function index()
     {
         $data = Loan::with('employee')->get();
-        return view('loan.index', compact('data'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-         $employees = Employee::all();
-        return view('loan.create', compact('employees'));
+        return response()->json($data);
     }
 
     /**
@@ -36,7 +27,7 @@ class LoanController extends Controller
             'loan_amount'         => 'required|numeric|min:0',
             'monthly_installment' => 'required|numeric|min:0',
             'start_date'          => 'required|date',
-            'status'              => 'required|in:Active,Cleared',
+            'status'              => 'required',
         ]);
 
         Loan::create([
@@ -49,8 +40,8 @@ class LoanController extends Controller
             'number_of_installment'=> $request->number_of_installment,
             'status'              => $request->status,
         ]);
-
-        return redirect()->route('loan.index')->with('success', 'Loan created successfully.');
+        
+        return response()->json(['message' => 'Loan Created ']);
     
     }
 
@@ -60,15 +51,6 @@ class LoanController extends Controller
     public function show(Loan $loan)
     {
         //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Loan $loan)
-    {
-        $employees = Employee::all();
-        return view('loan.edit', compact('loan', 'employees'));
     }
 
     /**
@@ -82,7 +64,7 @@ class LoanController extends Controller
             'monthly_installment' => 'required|numeric|min:0',
             'remaining_balance'   => 'required|numeric|min:0',
             'start_date'          => 'required|date',
-            'status'              => 'required|in:Active,Cleared',
+            'status'              => 'required',
         ]);
 
         $loan->update([
